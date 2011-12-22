@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+
+	<New id="cf" class="org.mortbay.jetty.plus.naming.Resource">
+	  <Arg>jms/connectionFactory</Arg>
+	  <Arg>
+	    <New class="org.apache.activemq.ActiveMQConnectionFactory">
+	       <Arg>vm://localhost?broker.persistent=false</Arg>
+	    </New>
+	  </Arg>
+	</New>
+	
+	<New id="myQueue"  class="org.mortbay.jetty.plus.naming.Resource">
+	  <Arg>jms/myQueue</Arg>
+	  <Arg>
+	    <New class="org.apache.activemq.command.ActiveMQQueue">
+	      <Arg>DEMO</Arg>
+	    </New>
+	  </Arg>
+	</New>
+	
+</Configure>

@@ -53,6 +53,14 @@ dependencies {
 	compile "org.springframework:spring-orm:${springVersion}"
 	compile "org.springframework:spring-webmvc:${springVersion}"
     compile "javax.inject:javax.inject:1"
+	compile 'org.apache.activemq:activemq-core:5.5.1'
 	testCompile "org.hamcrest:hamcrest-integration:${hamcrestVersion}"
 	testCompile "junit:junit:${junitVersion}"
+}
+
+
+[jettyRun, jettyRunWar,jettyStop]*.with {
+  jettyEnvXml = file('src/main/resources/jetty-env.xml')
+  httpPort = 8080
+  stopPort = 19742
 }
