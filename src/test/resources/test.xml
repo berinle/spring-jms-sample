@@ -7,16 +7,21 @@
 
     <component:component-scan base-package="spooky.web"/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
-    <mvc:annotation-driven/>
+    <!--<component:property-placeholder location="classpath:my.properties"/>-->
+    
+    <bean id="destinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver"/>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
+    <bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:my.properties"/>
     </bean>
+    
+    <!--<jee:jndi-lookup id="myQueue" jndi-name="jms/myQueue" environment-ref="config"/>
 
-    <jee:jndi-lookup id="myQueue" jndi-name="jms/myQueue" />
-    <jee:jndi-lookup id="connectionFactory" jndi-name="jms/connectionFactory"  />
+    <jee:jndi-lookup id="connectionFactory" jndi-name="jms/connectionFactory" environment-ref="config"/>-->
+    
+    <bean id="myQueue" class="org.apache.activemq.command.ActiveMQQueue"/>
+    <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="vm://localhost"/>
+    </bean>
 
 </beans>
